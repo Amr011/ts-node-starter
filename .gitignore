@@ -1,6 +1,6 @@
-.idea/
-.vscode/
-.env/
+.idea
+.vscode
+.env
 dist
 src/test
 node_modules
