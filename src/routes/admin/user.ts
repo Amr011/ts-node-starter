@@ -3,6 +3,17 @@ const router: Router = express.Router()
 
 import userMainfest from '../../manifest/user'
 
-router.route('/api/v1/user').get(new userMainfest().getManyUserApi)
+const user: userMainfest = new userMainfest()
+
+// Get Method
+router.route('/').get(user.getManyUser)
+// Get Method
+router.route('/:id').get(user.getOneUser)
+// Post Method
+router.route('/').post(user.createOneUser)
+// Put Method
+router.route('/:id').put(user.updateOneUser)
+// Delete Method
+router.route('/:id').delete(user.deleteOneUser)
 
 export default router

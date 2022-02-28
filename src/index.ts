@@ -22,7 +22,7 @@ async function ServerLancher(): Promise<void> {
       app.use(cors())
 
       // Router Config
-      app.use(router)
+      app.use('/api/v1', router)
 
       // Unavailable Request
       app.use((_req: Request, res: Response, _next: NextFunction) => {
