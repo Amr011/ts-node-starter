@@ -11,4 +11,5 @@ async function errorHandler(myFn?: any): Promise<any> {
       throw new Error(err)
    }
 }
+
 export default errorHandler
