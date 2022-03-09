@@ -5,22 +5,22 @@ import { user } from '../entity/user'
 
 const controller = new userController()
 
-// Manifest Layer
-export default class userMainfest {
-   // get many users data manifest function
+// Servuce Layer
+export default class userService {
+   // get many users data service function
    public async getManyUser(_req: Request, res: Response, _next: NextFunction) {
       const userData: user[] = await controller.getManyUser()
       return res.status(200).json(userData)
    }
 
-   // get one user data manifest function
+   // get one user data service function
    public async getOneUser(req: Request, res: Response, _next: NextFunction) {
       const { id } = req.params
       const userData: user = await controller.getOneUser(parseInt(id))
       return res.status(200).json(userData)
    }
 
-   // create one user data manifest function
+   // create one user data service function
    public async createOneUser(
       req: Request,
       res: Response,
@@ -31,7 +31,7 @@ export default class userMainfest {
       return res.status(200).json(userData)
    }
 
-   // update one user data manifest function
+   // update one user data service function
    public async updateOneUser(
       req: Request,
       res: Response,
@@ -45,7 +45,7 @@ export default class userMainfest {
       )
       return res.status(200).json(userData)
    }
-   // delete one user data manifest function
+   // delete one user data service function
    public async deleteOneUser(
       req: Request,
       res: Response,

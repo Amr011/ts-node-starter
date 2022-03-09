@@ -1,9 +1,9 @@
 import express, { Router } from 'express'
 const router: Router = express.Router()
 
-import userMainfest from '../../manifest/user'
+import userService from '../../service/user'
 
-const user: userMainfest = new userMainfest()
+const user: userService = new userService()
 
 // Get Method
 router.route('/').get(user.getManyUser)
