@@ -7,7 +7,6 @@ import {
    UpdateDateColumn,
    JoinTable,
    ManyToMany,
-   PrimaryColumn,
 } from 'typeorm'
 import { role } from './role'
 

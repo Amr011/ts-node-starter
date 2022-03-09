@@ -5,10 +5,7 @@ import {
    BaseEntity,
    CreateDateColumn,
    UpdateDateColumn,
-   ManyToMany,
-   JoinTable,
 } from 'typeorm'
-import { user } from './user'
 
 @Entity()
 export class role extends BaseEntity {

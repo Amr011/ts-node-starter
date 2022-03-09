@@ -1,5 +1,4 @@
 import { user } from '../entity/user'
-import errorHandler from '../middleware/error-handler'
 
 // Controller Layer
 export default class userController {
