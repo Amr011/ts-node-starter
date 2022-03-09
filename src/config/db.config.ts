@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import { createConnection } from 'typeorm'
-import { __prod__ } from '../utils/production'
+import { __prod__ } from '../utils/constants'
 
 export default async function connectDatabase(): Promise<void> {
    await createConnection({

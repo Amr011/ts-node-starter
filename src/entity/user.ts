@@ -5,7 +5,11 @@ import {
    BaseEntity,
    CreateDateColumn,
    UpdateDateColumn,
+   JoinTable,
+   ManyToMany,
+   PrimaryColumn,
 } from 'typeorm'
+import { role } from './role'
 
 @Entity()
 export class user extends BaseEntity {
@@ -27,8 +31,9 @@ export class user extends BaseEntity {
    @Column({ type: 'varchar', length: 256, nullable: false })
    password: string
 
-   @Column('int', { default: 0 })
-   tokenVersion: number
+   @ManyToMany(() => role, { cascade: true })
+   @JoinTable()
+   role: role[]
 
    @CreateDateColumn({ type: 'timestamp' })
    createdAt: Date
