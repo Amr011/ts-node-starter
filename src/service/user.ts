@@ -16,7 +16,9 @@ export default class userService {
    // get one user data service function
    public async getOneUser(req: Request, res: Response, _next: NextFunction) {
       const { id } = req.params
-      const userData: user = await controller.getOneUser(parseInt(id))
+      const userData: user | undefined = await controller.getOneUser(
+         parseInt(id)
+      )
       return res.status(200).json(userData)
    }
 

@@ -9,6 +9,7 @@ import dotenv from 'dotenv'
 
 import connectDatabase from './config/db.config'
 import router from './routes/index'
+import errorHandler from './middleware/error-handler'
 
 // Main Function
 async function ServerLancher(): Promise<void> {
@@ -20,6 +21,9 @@ async function ServerLancher(): Promise<void> {
       app.use(bodyParser.urlencoded({ extended: true }))
       app.use(morgan('dev'))
       app.use(cors())
+
+      // Error Handling
+      app.use(errorHandler)
 
       // Router Config
       app.use('/api/v1', router)
