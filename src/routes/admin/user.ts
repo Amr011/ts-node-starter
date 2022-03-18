@@ -5,15 +5,28 @@ import userService from '../../service/user'
 
 const user: userService = new userService()
 
-// Get Method
+// Get Current User GET Method
+// router.route('/me').get()
+// Get Many User GET Method
 router.route('/').get(user.getManyUser)
-// Get Method
-router.route('/:id').get(user.getOneUser)
-// Post Method
-router.route('/').post(user.createOneUser)
-// Put Method
-router.route('/:id').put(user.updateOneUser)
-// Delete Method
-router.route('/:id').delete(user.deleteOneUser)
+// Get One User GET Method
+// router.route('/:id').get(user.getOneUser)
+// Update Current User PUT Method
+// router.route('/').put(user.updateOneUser)
+// DELETE Current User DELETE Method
+// router.route('/').delete(user.deleteOneUser)
+// Change User Password POST Method
+// router.route('/password')
+// Forget User Password POST Method
+// router.route('/password')
+
+// Register User POST Method
+router.route('/register').post(user.registerUser)
+// Login User POST Method
+router.route('/login')
+// logout User POST Method
+router.route('/logout')
+// Verify User POST Method
+router.route('/verify/:token').post(user.verifyUser)
 
 export default router

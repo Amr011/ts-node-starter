@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from 'express'
-import { stat } from 'fs'
 import userController from '../controllers/user'
 import { user } from '../entity/user'
+import { IUserInput, IUserRegisterRequestBody } from '../types/IUserInput'
 
 const controller = new userController()
 
@@ -22,14 +22,16 @@ export default class userService {
       return res.status(200).json(userData)
    }
 
-   // create one user data service function
-   public async createOneUser(
-      req: Request,
-      res: Response,
-      _next: NextFunction
-   ) {
-      const user: user = req.body
-      const userData: boolean = await controller.createOneUser(user)
+   // registe user data service function
+   public async registerUser(req: Request, res: Response, _next: NextFunction) {
+      const data: IUserRegisterRequestBody = req.body
+      const userData = await controller.registerUser(data)
+      return res.status(200).json(userData)
+   }
+   // verify user email service function
+   public async verifyUser(req: Request, res: Response, _next: NextFunction) {
+      const token: string = req.params.token
+      const userData = await controller.verifyUser(token)
       return res.status(200).json(userData)
    }
 

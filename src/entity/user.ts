@@ -23,9 +23,6 @@ export class user extends BaseEntity {
    @Column({ type: 'varchar', length: 256, nullable: false })
    lastname: string
 
-   @Column({ type: 'int', nullable: false })
-   age: number
-
    @Column({ type: 'varchar', length: 256, nullable: false })
    email: string
 
@@ -40,6 +37,9 @@ export class user extends BaseEntity {
       onDelete: 'CASCADE',
    })
    product: product[]
+
+   @Column({ type: 'boolean', default: false })
+   verified: boolean
 
    @CreateDateColumn({ type: 'timestamp' })
    createdAt: Date
