@@ -7,7 +7,9 @@ import {
    UpdateDateColumn,
    JoinTable,
    ManyToMany,
+   OneToMany,
 } from 'typeorm'
+import { product } from './product'
 import { role } from './role'
 
 @Entity()
@@ -33,6 +35,11 @@ export class user extends BaseEntity {
    @ManyToMany(() => role, { cascade: true })
    @JoinTable()
    role: role[]
+
+   @OneToMany(() => product, (product) => product.user, {
+      onDelete: 'CASCADE',
+   })
+   product: product[]
 
    @CreateDateColumn({ type: 'timestamp' })
    createdAt: Date

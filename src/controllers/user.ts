@@ -4,7 +4,9 @@ import { user } from '../entity/user'
 export default class userController {
    // get many users data controller function
    public getManyUser = async function (): Promise<user[]> {
-      return await user.find()
+      return await user.find({
+         relations: ['role'],
+      })
    }
    // get one user data controller function
    public getOneUser = async function (id: number): Promise<user | undefined> {

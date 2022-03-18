@@ -1,8 +1,7 @@
 export interface IdbConfig {
-   type: 'postgres'
-   host: 'localhost'
-   port: 5432
-   username: 'postgres'
-   password: 'Amr123'
-   database: 'typeOrmFirstPG'
+   host: string | undefined
+   port: any
+   username: string | undefined
+   password: string | undefined
+   database: string | undefined
 }

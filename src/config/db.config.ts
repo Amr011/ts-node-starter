@@ -8,7 +8,7 @@ import { __prod__, dbConfig } from '../utils/constants'
 
 export default async function connectDatabase(): Promise<void> {
    await createConnection({
-      type: dbConfig.type,
+      type: 'postgres',
       host: dbConfig.host,
       port: dbConfig.port,
       username: dbConfig.username,
@@ -24,6 +24,6 @@ export default async function connectDatabase(): Promise<void> {
       },
       synchronize: true,
       dropSchema: !__prod__,
-      logging: true,
+      logging: !__prod__,
    })
 }
