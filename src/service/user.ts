@@ -25,7 +25,8 @@ export default class userService {
    // registe user data service function
    public async registerUser(req: Request, res: Response, _next: NextFunction) {
       const data: IUserRegisterRequestBody = req.body
-      const userData = await controller.registerUser(data)
+      const hostName = req.protocol + '://' + req.headers.host + req.originalUrl
+      const userData = await controller.registerUser(data, hostName)
       return res.status(200).json(userData)
    }
    // verify user email service function

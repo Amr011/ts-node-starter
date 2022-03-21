@@ -27,6 +27,6 @@ router.route('/login')
 // logout User POST Method
 router.route('/logout')
 // Verify User POST Method
-router.route('/verify/:token').post(user.verifyUser)
+router.route('/verify/:token').get(user.verifyUser)
 
 export default router
