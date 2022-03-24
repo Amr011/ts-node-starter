@@ -1,8 +1,9 @@
 import { hash } from 'bcryptjs'
 import { sign, verify } from 'jsonwebtoken'
 import { user } from '../entity/user'
-import { IUserRegisterRequestBody } from '../types/IUserInput'
+import { IUserLoginRequestBody, IUserRegisterRequestBody } from '../types/IUser'
 import { userVerifyTokenSecret } from '../utils/constants'
+import { userEmailVerify } from '../utils/userEmailVerify'
 import { transporter } from '../utils/userSendEmailVerify'
 
 // Controller Layer
@@ -32,26 +33,7 @@ export default class userController {
 
       data.password = await hash(data.password, 12)
       await user.create(data).save()
-
-      const verificationToken = sign(
-         { email: data.email },
-         userVerifyTokenSecret,
-         {
-            expiresIn: '7d',
-         }
-      )
-      // Step 3 - Email the user a unique verification link
-      const url = `${host}/api/v1/user/verify/${verificationToken}`
-      transporter.sendMail({
-         to: data.email,
-         subject: 'Verify Account',
-         html: `
-         <H1>Hello ${data.firstname}</H1>
-         <H3>YOUR EMAIL VIRIFICATION CODE IS HERE!</H3>
-         Click <a href = '${url}'>here</a> to confirm your email.
-         `,
-      })
-
+      userEmailVerify(data, host)
       return true
    }
 
@@ -59,13 +41,24 @@ export default class userController {
    public verifyUser = async function (token: string): Promise<boolean> {
       let payload: any = verify(token, userVerifyTokenSecret)
 
-      const userData: any = await user.findOne({
-         email: payload['email'],
+      const userData: user | undefined = await user.findOne({
+         where: { email: payload['email'] },
       })
-      if (!user) {
-         return false
-      }
+      if (!userData) return false
+
       await user.update({ id: userData.id }, { verified: true })
+
+      return true
+   }
+
+   // login user
+   public loginUser = async function (
+      data: IUserLoginRequestBody
+   ): Promise<boolean> {
+      const userData: user | undefined = await user.findOne({
+         where: { email: data.email },
+      })
+      if (!userData) return false
 
       return true
    }

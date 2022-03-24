@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from 'express'
 import userController from '../controllers/user'
 import { user } from '../entity/user'
-import { IUserInput, IUserRegisterRequestBody } from '../types/IUserInput'
+import { IUserRegisterRequestBody } from '../types/IUser'
 
 const controller = new userController()
 

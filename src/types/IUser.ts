@@ -1,10 +1,3 @@
-export interface IUserInput {
-   firstname: string
-   lastname: string
-   email: string
-   password: string
-}
-
 export interface IUserRegisterRequestBody {
    firstname: string
    lastname: string
