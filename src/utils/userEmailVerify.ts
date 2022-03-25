@@ -5,13 +5,13 @@ import { transporter } from './userSendEmailVerify'
 
 export async function userEmailVerify(
    data: IUserRegisterRequestBody,
-   host: any
+   host: string
 ): Promise<void> {
    const userEmailVerificationToken = sign(
       { email: data.email },
       userVerifyTokenSecret,
       {
-         expiresIn: 5000,
+         expiresIn: '7d',
       }
    )
 

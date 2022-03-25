@@ -23,10 +23,10 @@ router.route('/').get(user.getManyUser)
 // Register User POST Method
 router.route('/register').post(user.registerUser)
 // Login User POST Method
-router.route('/login')
+router.route('/login').post(user.loginUser)
 // logout User POST Method
 router.route('/logout')
-// Verify User POST Method
+// Verify User GET Method
 router.route('/verify/:token').get(user.verifyUser)
 
 export default router

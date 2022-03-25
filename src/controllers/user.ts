@@ -1,10 +1,11 @@
-import { hash } from 'bcryptjs'
+import { compareSync, hash } from 'bcryptjs'
 import { sign, verify } from 'jsonwebtoken'
 import { user } from '../entity/user'
 import { IUserLoginRequestBody, IUserRegisterRequestBody } from '../types/IUser'
-import { userVerifyTokenSecret } from '../utils/constants'
+import { jwtSecret, userVerifyTokenSecret } from '../utils/constants'
 import { userEmailVerify } from '../utils/userEmailVerify'
 import { transporter } from '../utils/userSendEmailVerify'
+import { userSignToken } from '../utils/userSignToken'
 
 // Controller Layer
 export default class userController {
@@ -54,13 +55,19 @@ export default class userController {
    // login user
    public loginUser = async function (
       data: IUserLoginRequestBody
-   ): Promise<boolean> {
+   ): Promise<string> {
       const userData: user | undefined = await user.findOne({
          where: { email: data.email },
       })
-      if (!userData) return false
+      if (!userData || userData.verified === false) return ''
 
-      return true
+      const userPassValidate: boolean = compareSync(
+         data.password,
+         userData.password
+      )
+      if (!userPassValidate) return userSignToken(JSON.stringify(userData.id))
+
+      return ''
    }
 
    // update one user data controller function

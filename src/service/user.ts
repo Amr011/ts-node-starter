@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction, Router } from 'express'
 import userController from '../controllers/user'
 import { user } from '../entity/user'
-import { IUserRegisterRequestBody } from '../types/IUser'
+import { IUserLoginRequestBody, IUserRegisterRequestBody } from '../types/IUser'
+import { userSignToken } from '../utils/userSignToken'
 
 const controller = new userController()
 
@@ -25,7 +26,7 @@ export default class userService {
    // registe user data service function
    public async registerUser(req: Request, res: Response, _next: NextFunction) {
       const data: IUserRegisterRequestBody = req.body
-      const hostName = req.protocol + '://' + req.headers.host + req.originalUrl
+      const hostName = req.protocol + '://' + req.headers['host']
       const userData = await controller.registerUser(data, hostName)
       return res.status(200).json(userData)
    }
@@ -34,6 +35,13 @@ export default class userService {
       const token: string = req.params.token
       const userData = await controller.verifyUser(token)
       return res.status(200).json(userData)
+   }
+   // login user service function
+   public async loginUser(req: Request, res: Response, next: NextFunction) {
+      const data: IUserLoginRequestBody = req.body
+      const token = await controller.loginUser(data)
+      req.headers['authorization'] = token
+      return res.status(200).json(token)
    }
 
    // update one user data service function

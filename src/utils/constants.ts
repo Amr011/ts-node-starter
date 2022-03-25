@@ -8,7 +8,7 @@ export const dbConfig: IdbConfig = {
    database: process.env.DB_NAME,
 }
 
-export const jwtSecret = process.env.ACCESS_TOKEN
+export const jwtSecret = process.env.ACCESS_TOKEN!
 
 export const userVerifyTokenSecret = process.env.USER_VERIFY_TOKEN_SECRET!
 
